@@ -1,0 +1,93 @@
+                         top linux comand
+
+#######################Date&chrony#######################
+
+chronyc sources                          # check chronyd
+timedatectl set-timezone Europe/Moscow   # install time and zone without reboot
+
+
+
+
+
+####################Package##########################
+dnf repolist all                  # show all repository
+sudo dnf clean all                # clear cash
+sudo dnf makecache                # check cash
+dnf config-manager --set-enabled   <repo>
+dnf repolist enabled | grep <repo>
+dnf --showduplicates list <pkg>    #show all pkg for repos
+
+
+
+##################################Pacemaker#########
+systemctl enable --now pcsd           #enable pcsd
+pcs  cluster destroy                  #destroy cluster
+sudo pcs host auth <host1> <host2>    #auth host cluster
+!!disabled firewall and selinux!!!
+pcs cluster setup <name_cluster!!>  <host1> <host2>    #create cluster
+!!!/var/lib/pcsd/known-hosts!!! usermod -aG wheel hacluster!!!
+pcs cluster start --all               # start cluster
+pcs cluster enable --all              # emable cluster
+pcs cluster status
+pcs status corosync
+-----
+sudo pcs property set stonith-enabled=true  # enable stonith (stop or reboot node)
+sudo pcs property set no-quorum-policy=stop  # Stop cluster ()
+
+#########################selinux###################
+cat /etc/selinux/config #SELINUX=disabled
+sestatus #status SELINUX
+setenforce 0 # disable online
+
+##########################ports####################
+lsof -i :<port>
+
+
+########################disc#######################
+df -h                                                     #full size diski
+du . -hcd 1 | sort -hr                                         #sort for max_size
+du -s *|sort -nr|cut -f 2-|while read a;do du -hs $a;done #sort size for folder
+
+####################rabbitmq#######################
+
+ rabbitmqctl delete_user "<user>"                         #dell user
+ rabbitmqctl add_user <user> <password>                   #add_user
+ rabbitmqctl set_permissions <user> ".*" ".*" ".*"        #full perm
+ rabbitmqctl set_policy <name_policy>
+rabbitmqctl clear_policy ha-all <name_policy>
+ rabbitmqctl list_policies <list_policy>
+ rabbitmqctl join_cluster --<ram or disk>  rabbit@<name_master_node> #add cluster nodes
+rabbitmqctl cluster_status                               #status innodb_log_file_size
+rabbitmqctl forget_cluster_node rabbit@Only              #forget nodes#######################mariadb#####################
+show databases;     #show db
+use <database>;     #use db
+show tables;        #show tables;
+
+
+##################ceph#############################
+ceph status                        #
+ceph osd pool ls detail            #details pool information
+-----------------------------------
+ceph osd getcrushmap -o <crusch.txt>           # 1-get crushmap
+crushtool -d {crush.txt} -o {decomp_crush.txt} # 2-decompile crushmap
+crushtool -c {decompiled-crushmap-filename} -o {compiled-crushmap-filename} #recompile
+ceph osd setcrushmap -i {compiled-crushmap-filename}
+ceph osd pool set <name_pool> crush_rule <name rule>
+ceph orch apply mon --placement="9 helius1 helius2 helius3 helius4 node0 node1 node2 node3 node4 " #add monitors
+----------------------------------
+ceph config set mon mon_allow_pool_delete true # allow delete Pools
+ceph osd pool delete <name_pool> <name_pool>  --yes-i-really-really-mean-it #delete Pools
+----------------------------------
+rados df #static_pool
+
+-----------------------------------
+ceph pg dump # show all os_user_domain_name
+-----------------------------------
+ceph osd crush rule ls   #ls rules crushmap
+ceph osd crush rule dump #show rules
+------------------------------------------------test_rules-----------------
+crushtool -c <decompl.txt> -o crushmap-new.bin #create bin for test.
+crushtool --test -i <Create.bin> --show-utilization  --num-rep=2 | grep ^rule #test rule
+---------------------------------------------------------------------------
+####################kuber#############################
+kubeadm reset (reset init)
