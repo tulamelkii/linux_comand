@@ -1,13 +1,14 @@
-                         top linux comand
+                             top linux comand
+
+######################network############################
+ip link set <interface> up  # up interface 
+iwlist scan # scan network wi-fi
+
 
 #######################Date&chrony#######################
 
 chronyc sources                          # check chronyd
 timedatectl set-timezone Europe/Moscow   # install time and zone without reboot
-
-
-
-
 
 ####################Package##########################
 dnf repolist all                  # show all repository
@@ -67,6 +68,7 @@ show tables;        #show tables;
 ##################ceph#############################
 ceph status                        #
 ceph osd pool ls detail            #details pool information
+ceph orch host add <name_host> <ip_host>
 -----------------------------------
 ceph osd getcrushmap -o <crusch.txt>           # 1-get crushmap
 crushtool -d {crush.txt} -o {decomp_crush.txt} # 2-decompile crushmap
@@ -75,11 +77,16 @@ ceph osd setcrushmap -i {compiled-crushmap-filename}
 ceph osd pool set <name_pool> crush_rule <name rule>
 ceph orch apply mon --placement="9 helius1 helius2 helius3 helius4 node0 node1 node2 node3 node4 " #add monitors
 ----------------------------------
+ceph pg stat # statistic pg
+ceph osd stat
+
+
+----------------------------------
 ceph config set mon mon_allow_pool_delete true # allow delete Pools
 ceph osd pool delete <name_pool> <name_pool>  --yes-i-really-really-mean-it #delete Pools
 ----------------------------------
 rados df #static_pool
-
+rbd ls --pool volumes # show wolumes 
 -----------------------------------
 ceph pg dump # show all os_user_domain_name
 -----------------------------------
