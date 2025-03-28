@@ -51,7 +51,8 @@ setenforce 0 # disable online
 
 ##########################ports####################
 lsof -i :<port>
-
+lsof -u # process open user
+lsof +D # Directory
 
 ########################disc#######################
 df -h                                                     #full size diski
@@ -68,16 +69,21 @@ rabbitmqctl clear_policy ha-all <name_policy>
  rabbitmqctl list_policies <list_policy>
  rabbitmqctl join_cluster --<ram or disk>  rabbit@<name_master_node> #add cluster nodes
 rabbitmqctl cluster_status                               #status innodb_log_file_size
-rabbitmqctl forget_cluster_node rabbit@Only              #forget nodes#######################mariadb#####################
+rabbitmqctl forget_cluster_node rabbit@Only              #forget nodes
+
+
+#######################mariadb#####################
 show databases;     #show db
 use <database>;     #use db
 show tables;        #show tables;
+SELECT user,host FROM mysql.user;
 
 
 ##################ceph#############################
 ceph status                        #
 ceph osd pool ls detail            #details pool information
 ceph orch host add <name_host> <ip_host>
+ceph orch host ls                  # list host
 -----------------------------------
 ceph osd getcrushmap -o <crusch.txt>           # 1-get crushmap
 crushtool -d {crush.txt} -o {decomp_crush.txt} # 2-decompile crushmap
@@ -88,6 +94,16 @@ ceph orch apply mon --placement="9 helius1 helius2 helius3 helius4 node0 node1 n
 ----------------------------------
 ceph pg stat                       # statistic pg
 ceph osd stat
+
+ ceph osd blacklist ls
+ceph osd blacklist rm <client-address>
+ceph osd blacklist clear
+
+--------------
+---------------------------------rbd -------------------
+rbd lock list volumes/volume<id_volume>
+rbd map volumes/volume-<id_vol> /dev/rbd0 (mkdir /mnt/rbd-volume, mount /dev/rbd0p1  /mnt/rbd-volume)
+
 
 
 ----------------------------------
@@ -109,40 +125,107 @@ crushtool --test -i <Create.bin> --show-utilization  --num-rep=2 | grep ^rule #t
 ##############virsh##################################
 virsh list --all       #on virtualmashine
 
+virsh console --domain <vm>
 ###########useful#####################################
 last                   # login to console
 dmidecode -t bios -q   #check bios
 stat <file>            #show option for filename
 source ~/.bashrc       #обновить оболочку
+env
+crontab -l             # list rules
+ssh-keygen
+systemctl list-unit-files '*virt*'   #show service
+systemd-analyze blame
+systemd-analyze critical-chain
+sudo systemctl list-dependencies <daemon>
+locale
 
-_________________________________________________________________________________
+____
+
+__________________________________________________________________________
 _________________________Debian__________________________________________________
 sudo apt list --installed   #list installed Package
 dpkg-query -l               #list dpkg
+apt -f install # fix packages
 --------------------------------------------------
 file <file>            #filename
 stat <file>            # filename
 whoami                 #show how you address
 who                    #show tty and users
 
+
 ################apt####################################
 apt list --upgradable        # show apgrade Package
 apt policy <package name>    #  show information for Package
 apt search  <pakage name>
 
+_____________________________Docker____________________________________________
+docker images
+docker image rm <id images> --force
+docker ps
+docker run
+--------------------------------------------------------------------------------
+                                  openvpn
+ openvpn --config <config>  (https://ipspeed.info/freevpn_openvpn.php)
 
 ________________________________________________________________________________
 _____________________________Kubernetis_________________________________________
-kubectl get pods --all-namespaces   #show all pods 
-kubectl get nodes     # show nodes 
-
-helm install
-helm repo list               # show install repo 
-helm search repo | grep <package>
-helm show values <repo/path> # show values
-helm get values # get value for chart 
-helm rollback <helm>
+kubectl get pods --all-namespaces   #show all pods
+kubectl get nodes  --show-labels    # show nodes and labels
 kubectl get namespace        # show namespaces
 kubectl create namespace     # create namespaces
-  
+kubectl secret list
+kubectl get secret -n <namespace>
+kubectl describe nodes <name node>
+kubectl describe secret <secret>
+kubectl describe rolebinding -n <namespace> # show role to namespace
+kubectl describe clusterrolebinding         # show cluster role
+kubectl get events -n prometheus   # show journal
+kubectl label nodes <name node> <labels> or --overwrite <label>
+kubectl label pod <namme pod> <labels>
+kubectl delete --all pods --namespace=<name space>
+kubectl delete --all deployments --namespacfe=
+kubectl get componentstatuses                       ##show helth
+kubectl events
+kubectl taint nodes <name node> <labels=value>:NoSchedule (-) # add tenat
+kubectl port-forward <pod_grafana> -n <namespace> --address 0.0.0.0
 
+kubectl get secret <name secret>  -n <name space> -o jsonpath='{.data}' ""
+echo 'password' | base64 --decode  #decode
+
+----helm------------------------------------------------------------------------
+helm install
+helm repo list               # show install repo
+helm search repo | grep <package>
+helm show values <repo/path> # show values
+helm get values <name_helm> -n <namespace>  # get value for chart
+helm get matifest <name>
+helm status prometheus -n default
+helm rollback <helm>
+--------------------------------------------------Openstack cinder-------------
+cinder reset-state --state available <id_disk>
+cinder reset-state --reset-migration-status <id_disk>
+cinder reset-state --attach-status detached <id_disk>
+
+openstack server add volume <id_server> <id_disk> --device /dev/vda
+
+-------------------------------------------openstack server --------------------
+openstack server set --state active <server_id>
+
+--------------------------------------------placement---------------------------
+openstack resource provider list                         # show id hosts
+openstack resource provider inventory list <id_provider>      # show ressource host
+resource provider allocation show <id_instace>           #show allocation vm
+**********create_alocation**************
+openstack resource provider allocation set     --project-id c084abdb62ee476d93b254aad0ee05a6     --user-id 6cf2c6e3327d4041817fc337     --allocation rp=9c92594b-a6fa-4e1e-83cd-7e1ce291376e,VCPU=2     --allocation rp=9c92594b-a6fa-4e1e-83cd-7e1ce291376e,MEMORY_MB=4096     6e2512e7-14bb-48ca-b2c3-f0c692a4a0b
+*******************************************
+
+-----------------------------------port neutron---------------------------------
+openstack port list --server <instance_id>
+openstack port show <id_port>
+
+
+
+--------------------
+fix
+nohup kubectl port-forward prometheus-grafana-bd979ff9-4hg5w -n prometheus --address 0.0.0.0 3000:3000 > port-forward.log 2>&1 &
