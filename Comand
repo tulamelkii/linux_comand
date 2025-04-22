@@ -169,7 +169,7 @@ docker run
  openvpn --config <config>  (https://ipspeed.info/freevpn_openvpn.php)
 
 ________________________________________________________________________________
-_____________________________Kubernetis_________________________________________
+_____________________________Kubernetes_________________________________________
 kubectl get pods -A
 kubectl get pods --all-namespaces   #show all pods
 kubectl get nodes  --show-labels    # show nodes and labels
@@ -179,8 +179,8 @@ kubectl delete --all deployments --namespacfe=
 
 *************namespaces********************
 
-kubectl get namespace        # show namespaces
-kubectl create namespace     # create namespaces
+kubectl get namespace (ns)       # show namespaces
+kubectl create namespace  (ns)   # create namespaces
 ************secret*************************
 
 kubectl secret list
@@ -191,6 +191,9 @@ kubectl describe secret <secret>
 
 kubectl describe rolebinding -n <namespace> # show role to namespace
 kubectl describe clusterrolebinding         # show cluster role
+kubectl get clusterrole edit -o yaml 
+kubectl get clusterrole cluster-admin -o yaml
+
 ***********************************
 
 
