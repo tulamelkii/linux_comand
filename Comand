@@ -170,28 +170,49 @@ docker run
 
 ________________________________________________________________________________
 _____________________________Kubernetis_________________________________________
+kubectl get pods -A
 kubectl get pods --all-namespaces   #show all pods
 kubectl get nodes  --show-labels    # show nodes and labels
-kubectl get namespace        # show namespaces
-kubectl create namespace     # create namespaces
-kubectl secret list
-kubectl get secret -n <namespace>
 kubectl describe nodes <name node>
-kubectl describe secret <secret>
-kubectl describe rolebinding -n <namespace> # show role to namespace
-kubectl describe clusterrolebinding         # show cluster role
-kubectl get events -n prometheus   # show journal
-kubectl label nodes <name node> <labels> or --overwrite <label>
-kubectl label pod <namme pod> <labels>
 kubectl delete --all pods --namespace=<name space>
 kubectl delete --all deployments --namespacfe=
-kubectl get componentstatuses                       ##show helth
-kubectl events
+
+*************namespaces********************
+
+kubectl get namespace        # show namespaces
+kubectl create namespace     # create namespaces
+************secret*************************
+
+kubectl secret list
+kubectl get secret -n <namespace>
+kubectl describe secret <secret>
+
+*********roles**********************
+
+kubectl describe rolebinding -n <namespace> # show role to namespace
+kubectl describe clusterrolebinding         # show cluster role
+***********************************
+
+
+
+kubectl label nodes <name node> <labels> or --overwrite <label>
+kubectl label pod <namme pod> <labels>
 kubectl taint nodes <name node> <labels=value>:NoSchedule (-) # add tenat
+
+kubectl get componentstatuses                       ##show helth
+***************events****************
+
+kubectl events
+kubectl get events -n prometheus   # show journal
+
+*************Port-forvard************
 kubectl port-forward <pod_grafana> -n <namespace> --address 0.0.0.0
 
-kubectl get secret <name secret>  -n <name space> -o jsonpath='{.data}' ""
-echo 'password' | base64 --decode  #decode
+*************useful***
+kubectl api-resources  #show all resources
+
+
+kubectl get events -n prometheus   # show journal
 
 ----helm------------------------------------------------------------------------
 helm install
