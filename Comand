@@ -213,8 +213,8 @@ kubectl port-forward <pod_grafana> -n <namespace> --address 0.0.0.0
 
 *************useful***
 kubectl api-resources  #show all resources
-
-
+kubectl get componentstatuses
+kubectl get events --sort-by=.metadata.creationTimestamp  #check logs
 kubectl get events -n prometheus   # show journal
 
 ----helm------------------------------------------------------------------------
