@@ -140,7 +140,8 @@ systemd-analyze critical-chain
 sudo systemctl list-dependencies <daemon>
 locale
 
-____
+-------------ipmi_tool-------------------------------------
+ipmitool -U admin -P admin -H <IP> power on
 
 __________________________________________________________________________
 _________________________Debian__________________________________________________
