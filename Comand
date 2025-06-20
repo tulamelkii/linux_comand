@@ -103,7 +103,10 @@ ceph osd blacklist clear
 ---------------------------------rbd -------------------
 rbd lock list volumes/volume<id_volume>
 rbd map volumes/volume-<id_vol> /dev/rbd0 (mkdir /mnt/rbd-volume, mount /dev/rbd0p1  /mnt/rbd-volume)
-
+----------show
+rbd ls volumes |grep volume-eb
+rbd info volumes/volume-eb
+ceph osd map volumes rbd_data.3d3b4f8e63a28e
 
 
 ----------------------------------
