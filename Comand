@@ -169,8 +169,14 @@ docker image rm <id images> --force
 docker ps
 docker run
 --------------------------------------------------------------------------------
-                                  openvpn
- openvpn --config <config>  (https://ipspeed.info/freevpn_openvpn.php)
+                                 gitlab
+
+git clone git@gitlab...
+git branch <show branch>
+git add . <or file>
+git commit -m "helm_vault"
+git push origin devops
+
 
 ________________________________________________________________________________
 _____________________________Kubernetes_________________________________________
