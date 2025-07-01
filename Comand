@@ -236,7 +236,25 @@ helm get values <name_helm> -n <namespace>  # get value for chart
 helm get matifest <name>
 helm status prometheus -n default
 helm rollback <helm>
---------------------------------------------------Openstack cinder-------------
+
+-------------------------------------------------------------------------------
+--------------------------------vault------------------------------------------
+vault kv get <path>                                 #secret get
+vault kv put <kv/dev.....>                          #secret add
+vault kv list <path>                                #secret list
+vault policy list                                   #policy list
+vault policy read <policy>                          #read policy
+vault policy write <name_policy>  <file_policy>.hcl #write policy
+-----
+path "kv/data/dev" {
+  capabilities = ["list","read"]
+} 
+-----
+vault list auth/kubernetes/role  #list role
+
+
+-------------------------------------------------------------------------------
+---------------------------Openstack cinder------------------------------------
 cinder reset-state --state available <id_disk>
 cinder reset-state --reset-migration-status <id_disk>
 cinder reset-state --attach-status detached <id_disk>
