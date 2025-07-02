@@ -239,6 +239,7 @@ helm rollback <helm>
 
 -------------------------------------------------------------------------------
 --------------------------------vault------------------------------------------
+vault auth list # authintification
 vault kv get <path>                                 #secret get
 vault kv put <kv/dev.....>                          #secret add
 vault kv list <path>                                #secret list
@@ -251,7 +252,7 @@ path "kv/data/dev" {
 } 
 -----
 vault list auth/kubernetes/role  #list role
-
+vault read auth/kubernetes/config
 
 -------------------------------------------------------------------------------
 ---------------------------Openstack cinder------------------------------------
