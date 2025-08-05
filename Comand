@@ -264,6 +264,7 @@ openstack server add volume <id_server> <id_disk> --device /dev/vda
 
 -------------------------------------------openstack server --------------------
 openstack server set --state active <server_id>
+openstack server list --host helius3 --all-projects -c ID --format value | xargs openstack server delete --force
 
 --------------------------------------------placement---------------------------
 openstack resource provider list                         # show id hosts
