@@ -124,7 +124,7 @@ ceph osd crush rule dump          #show rules
 crushtool -c <decompl.txt> -o crushmap-new.bin #create bin for test.
 crushtool --test -i <Create.bin> --show-utilization  --num-rep=2 | grep ^rule #test rule
 ---------------------------------------------------------------------------
-
+ceph osd metadata 35 | grep device_path  # show disc
 ##############virsh##################################
 virsh list --all       #on virtualmashine
 
