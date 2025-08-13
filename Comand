@@ -89,6 +89,12 @@ ceph osd getcrushmap -o <crusch.txt>           # 1-get crushmap
 crushtool -d {crush.txt} -o {decomp_crush.txt} # 2-decompile crushmap
 crushtool -c {decompiled-crushmap-filename} -o {compiled-crushmap-filename} #recompile
 ceph osd setcrushmap -i {compiled-crushmap-filename}
+
+ceph osd pool set volumes pgp_num <size placement >
+ceph osd pool set volumes pg_num <size placement group>
+ceph osd pool set volumes size <size_replic>
+ceph osd pool set volumes min_size <size_replic>
+
 ceph osd pool set <name_pool> crush_rule <name rule>
 ceph orch apply mon --placement="9 helius1 helius2 helius3 helius4 node0 node1 node2 node3 node4 " #add monitors
 ----------------------------------
