@@ -288,7 +288,7 @@ openstack image list && openstack network list && openstack availability zone li
 --------------Network&Subnetwork---------------
 openstack network create network_10_30_0_0 --internal --provider-network-type vxlan --share
 openstack subnet create --allocation-pool start=10.30.0.3,end=10.30.0.243 --dhcp --dns-nameserver 8.8.8.8 --gateway 10.30.0.1 --network network_10_30_0_0 --subnet-range 10.30.0.0/24 sub_network_10_30_0_0
-
+openstack server list --host node1 -c ID  --format value | tail| xargs -I {} openstack server migrate --live-migration --host helius1 --os-compute-api-version 2.30  {}
 --------------------
 fix
 nohup kubectl port-forward prometheus-grafana-bd979ff9-4hg5w -n prometheus --address 0.0.0.0 3000:3000 > port-forward.log 2>&1 &
