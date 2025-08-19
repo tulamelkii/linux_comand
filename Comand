@@ -285,6 +285,9 @@ openstack port list --server <instance_id>
 openstack port show <id_port>
 
 openstack image list && openstack network list && openstack availability zone list && openstack flavor list
+--------------Network&Subnetwork---------------
+openstack network create network_10_30_0_0 --internal --provider-network-type vxlan --share
+openstack subnet create --allocation-pool start=10.30.0.3,end=10.30.0.243 --dhcp --dns-nameserver 8.8.8.8 --gateway 10.30.0.1 --network network_10_30_0_0 --subnet-range 10.30.0.0/24 sub_network_10_30_0_0
 
 --------------------
 fix
