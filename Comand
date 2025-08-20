@@ -58,8 +58,15 @@ lsof +D # Directory
 df -h                                                     #full size diski
 du . -hcd 1 | sort -hr                                         #sort for max_size
 du -s *|sort -nr|cut -f 2-|while read a;do du -hs $a;done #sort size for folder
+########################process####################
+ps -ef  # all process ppid and pid
+ps -aux 
+echo $?  #show 0,1,2 126,127,128 (1-error, 0-good, 2-error use comand  127 -comand not found
+<cmmand> &   # fon proccess
 
 ####################rabbitmq#######################
+
+
 
  rabbitmqctl delete_user "<user>"                         #dell user
  rabbitmqctl add_user <user> <password>                   #add_user
@@ -290,6 +297,12 @@ openstack network create network_10_30_0_0 --internal --provider-network-type vx
 openstack subnet create --allocation-pool start=10.30.0.3,end=10.30.0.243 --dhcp --dns-nameserver 8.8.8.8 --gateway 10.30.0.1 --network network_10_30_0_0 --subnet-range 10.30.0.0/24 sub_network_10_30_0_0
 openstack server list --host node1 -c ID  --format value | tail| xargs -I {} openstack server migrate --live-migration --host helius1 --os-compute-api-version 2.30  {}
 openstack server list --status ERROR -c ID --format value | xargs -I {} openstack server set --state active {}
---------------------
+--------------------segment&masakar------------
+openstack segment list
+openstack segment host <id_segment>
+openstack segment host update --on_maintenance False <id_segment>   
+----------------------------------------------
+
+
 fix
 nohup kubectl port-forward prometheus-grafana-bd979ff9-4hg5w -n prometheus --address 0.0.0.0 3000:3000 > port-forward.log 2>&1 &
