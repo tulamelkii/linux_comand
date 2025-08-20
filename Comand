@@ -155,6 +155,11 @@ systemd-analyze blame
 systemd-analyze critical-chain
 sudo systemctl list-dependencies <daemon>
 locale
+strace -e trace=process ls
+lsof -p <PID> 
+lsof -d <PID>
+ls -l /proc/$$/fd/ #show all filedescriptor
+ulimit -n # show limit file descript
 
 -------------ipmi_tool-------------------------------------
 ipmitool -U admin -P admin -H <IP> power on
@@ -267,7 +272,12 @@ path "kv/data/dev" {
 vault list auth/kubernetes/role  #list role
 vault read auth/kubernetes/config
 
--------------------------------------------------------------------------------
+---------------------------Openstack Nova-------------------------------------
+openstack compute service list # show openstack service
+openstack compute service set --enable <host> <service>  # enable service
+
+
+
 ---------------------------Openstack cinder------------------------------------
 cinder reset-state --state available <id_disk>
 cinder reset-state --reset-migration-status <id_disk>
