@@ -158,8 +158,9 @@ locale
 strace -e trace=process ls
 lsof -p <PID> 
 lsof -d <PID>
-ls -l /proc/$$/fd/ #show all filedescriptor
+ls -l /proc/$$/fd/ #show all file descriptor
 ulimit -n # show limit file descript
+ awk '/MemTotal|MemFree|Buffers|Cached/ { printf "%s: %.2f MB\n", $1, $2/1024 }' /proc/meminfo
 
 -------------ipmi_tool-------------------------------------
 ipmitool -U admin -P admin -H <IP> power on
