@@ -160,7 +160,8 @@ lsof -p <PID>
 lsof -d <PID>
 ls -l /proc/$$/fd/ #show all file descriptor
 ulimit -n # show limit file descript
- awk '/MemTotal|MemFree|Buffers|Cached/ { printf "%s: %.2f MB\n", $1, $2/1024 }' /proc/meminfo
+awk '/MemTotal|MemFree|Buffers|Cached/ { printf "%s: %.2f MB\n", $1, $2/1024 }' /proc/meminfo
+ldd /bin/ #show package lib for bin file
 
 -------------ipmi_tool-------------------------------------
 ipmitool -U admin -P admin -H <IP> power on
@@ -301,6 +302,7 @@ openstack resource provider allocation set     --project-id c084abdb62ee476d93b2
 -----------------------------------port neutron---------------------------------
 openstack port list --server <instance_id>
 openstack port show <id_port>
+openstack router add subnet <router_id> <subnet_id>
 
 openstack image list && openstack network list && openstack availability zone list && openstack flavor list
 --------------Network&Subnetwork---------------
