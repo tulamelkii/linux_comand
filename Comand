@@ -14,6 +14,7 @@ timedatectl set-timezone Europe/Moscow   # install time and zone without reboot
 
 ####################Package##########################
 rpm -qa
+rpm -qR <package>
 dnf list installed
 dnf repolist all                  # show all repository
 sudo dnf clean all                # clear cash
@@ -169,6 +170,8 @@ ipmitool -U admin -P admin -H <IP> power on
 __________________________________________________________________________
 _________________________Debian__________________________________________________
 sudo apt list --installed   #list installed Package
+apt list -a code # all packages installed
+apt depends # show all dependence
 dpkg-query -l               #list dpkg
 apt -f install # fix packages
 --------------------------------------------------
