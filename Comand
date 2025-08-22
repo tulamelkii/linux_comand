@@ -163,6 +163,11 @@ ls -l /proc/$$/fd/ #show all file descriptor
 ulimit -n # show limit file descript
 awk '/MemTotal|MemFree|Buffers|Cached/ { printf "%s: %.2f MB\n", $1, $2/1024 }' /proc/meminfo
 ldd /bin/ #show package lib for bin file
+-------cgroup--------------------------
+systemd-cgtop         #show process cgroup
+systemd-cgls          #show tree ls cgroup
+mount | grep cgroup   #show version cgrop
+
 
 -------------ipmi_tool-------------------------------------
 ipmitool -U admin -P admin -H <IP> power on
