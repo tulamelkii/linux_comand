@@ -157,8 +157,12 @@ systemd-analyze critical-chain
 sudo systemctl list-dependencies <daemon>
 locale
 strace -e trace=process ls
+lscpu #show cpu system
+
+----------------lsof------
 lsof -p <PID> 
 lsof -d <PID>
+---------------file descr-----------
 ls -l /proc/$$/fd/ #show all file descriptor
 ulimit -n # show limit file descript
 awk '/MemTotal|MemFree|Buffers|Cached/ { printf "%s: %.2f MB\n", $1, $2/1024 }' /proc/meminfo
