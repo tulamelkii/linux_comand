@@ -197,9 +197,57 @@ apt search  <pakage name>
 
 _____________________________Docker____________________________________________
 docker images
-docker image rm <id images> --force
-docker ps
+docker rmi  <id images> --force
+docker ps 
+docker ps -a <all container exited and live>
+docker rm  <container>
 docker run
+docker exec -it <container> -c sh "command"
+docker start <container>
+docker stop <container>
+docker logs <container>
+docker inspect <container>
+docker build -t <name images> <.> directory
+
+----network---
+docker network create --driver bridge --ip-range 10.0.0.0/24 --gateway 10.0.0.1
+docker network list
+docker network connect 
+---volume-----
+docker volume list
+----save images and load----
+docker save -o <name>.tar <name_images>:<tag>
+docker load -i <name>.tar
+----export and import container----
+docker export -o <name>.tar <name_contaner>
+
+-----container_create-------------
+docker run -dt --name custom -p <port_red>:<port> -v /tmp/docker:/usr/share/nginx/html --network net1
+-------------custom---------------
+docker images --format {{.ID}} | xargs -I {} docker rmi {} --force
+docker ps --format {{.IMAGE}} | xargs -I {} doker rm {}
+----------------------------------
+docker run -dt  --name <name_container> sleep infinity (all_time)
+--------docker_file---------------
+FROM <container:tag>
+RUN <command> ..apt install..
+WORKDIR <dir>
+ADD <source_path> <destination_path>  #copy tar and unrar and load url
+COPY <source_path> <destination_path> #dont copy tar
+CMD ["nginx", "-g", "daemon off;"] (comand sh)
+ENTRYPOINT нельзя переопределить
+ENV APP_ENV=production  # <env_to_container>
+ARG                     # env in build container
+EXPOSE #port container but dot open 
+VOLUME /var/lib/mysql add volume
+LABEL # add metadata
+USER www-data # who run appl with container
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1 #healtcheck container
+SHELL ["/bin/bash", "-c"] #how shell use with container
+
+ 
+
 --------------------------------------------------------------------------------
                                  gitlab
 
