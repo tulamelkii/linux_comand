@@ -316,7 +316,10 @@ helm get values <name_helm> -n <namespace>  # get value for chart
 helm get matifest <name>
 helm status prometheus -n default
 helm rollback <helm>
-
+----
+usefull comand
+----
+kubectl get cs #health
 -------------------------------------------------------------------------------
 --------------------------------vault------------------------------------------
 vault auth list # authintification
