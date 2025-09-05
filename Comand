@@ -379,7 +379,7 @@ openstack server list --host node1 -c ID  --format value | tail| xargs -I {} ope
 openstack server list --status ERROR -c ID --format value | xargs -I {} openstack server set --state active {}
 --------------------segment&masakar------------
 openstack segment list
-openstack segment host <id_segment>
+openstack segment host list <id_segment>
 openstack segment host update --on_maintenance False <id_segment>   
 ----------------------------------------------
 
