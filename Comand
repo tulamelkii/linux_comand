@@ -365,7 +365,7 @@ resource provider allocation show <id_instace>           #show allocation vm
 **********create_alocation**************
 openstack resource provider allocation set     --project-id c084abdb62ee476d93b254aad0ee05a6     --user-id 6cf2c6e3327d4041817fc337     --allocation rp=9c92594b-a6fa-4e1e-83cd-7e1ce291376e,VCPU=2     --allocation rp=9c92594b-a6fa-4e1e-83cd-7e1ce291376e,MEMORY_MB=4096     6e2512e7-14bb-48ca-b2c3-f0c692a4a0b
 *******************************************
-
+openstack allocation candidate list --resource VCPU=20
 -----------------------------------port neutron---------------------------------
 openstack port list --server <instance_id>
 openstack port show <id_port>
