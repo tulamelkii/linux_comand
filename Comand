@@ -150,6 +150,12 @@ s3cmd rb s3://prometheus-data   --host=node0:80   --access_key=.... --secret_key
 virsh list --all       #on virtualmashine
 
 virsh console --domain <vm>
+
+
+#######kernel_module##################################
+modprobe nvidia
+modprobe -r nvidia #dell_module
+modinfo
 ###########useful#####################################
 last                   # login to console
 dmidecode -t bios -q   #check bios
@@ -164,7 +170,13 @@ systemd-analyze critical-chain
 sudo systemctl list-dependencies <daemon>
 locale
 strace -e trace=process ls
+lspci
 lscpu #show cpu system
+lsmod # show module kernel
+efibootmgr
+lsfd # show all open file
+
+
 
 ----------------lsof------
 lsof -p <PID> 
