@@ -25,8 +25,16 @@ dnf repolist enabled | grep <repo>
 dnf --showduplicates list <pkg>    #show all pkg for repos
 pip3 list  #list installed
 
-
-
+#######################systemd#####################
+systemctl 
+systemctl --failed
+systemctl  --state=active
+systemctl  --type=target --state=
+systemctl  --type=socket
+systemctl list-unit-files --type=service #show all unit 
+systemctl list-dependencies <target-name>
+systemctl status # show tree slice scope
+/etc/systemd/system/multi-user.target.wants/
 ##################################Pacemaker#########
 systemctl enable --now pcsd           #enable pcsd
 pcs  cluster destroy                  #destroy cluster
@@ -49,7 +57,7 @@ sudo pcs property set no-quorum-policy=stop  # Stop cluster ()
 cat /etc/selinux/config #SELINUX=disabled
 sestatus #status SELINUX
 setenforce 0 # disable online
-
+echo 0 > /sys/fs/selinux/enforce
 ##########################ports####################
 lsof -i :<port>
 lsof -u # process open user
