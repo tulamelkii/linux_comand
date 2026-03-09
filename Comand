@@ -35,6 +35,9 @@ systemctl list-unit-files --type=service #show all unit
 systemctl list-dependencies <target-name>
 systemctl status # show tree slice scope
 /etc/systemd/system/multi-user.target.wants/
+systemctl get-default #show target
+systemctl set-default multi-user.target
+systemctl list-units --type=target
 ##################################Pacemaker#########
 systemctl enable --now pcsd           #enable pcsd
 pcs  cluster destroy                  #destroy cluster
