@@ -70,6 +70,10 @@ lsof +D # Directory
 df -h                                                     #full size diski
 du . -hcd 1 | sort -hr                                         #sort for max_size
 du -s *|sort -nr|cut -f 2-|while read a;do du -hs $a;done #sort size for folder
+du -shx / # show size root
+sudo du -ahx / | sort -rh | head -n 20 # show 20 string root
+install ncdu for size disk
+
 ########################process####################
 ps -ef  # all process ppid and pid
 ps -aux 
