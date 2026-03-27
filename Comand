@@ -80,6 +80,24 @@ ps -aux
 echo $?  #show 0,1,2 126,127,128 (1-error, 0-good, 2-error use comand  127 -comand not found
 <cmmand> &   # fon proccess
 
+###################################################
+openssl genrsa -out rootCAG.key 4096 #gen key
+chmod 600 rootCAG.key 
+openssl req -x509 -new -nodes -key rootCAG.key -sha256 -days 3650 -out rootCAG.crt #create root cert
+openssl x509 -in rootCAG.crt -text -noout
+cp rootCAG.crt /usr/local/share/ca-certificates/
+openssl genrsa -out only.gitlab.com.key
+openssl req -new -key only.gitlab.com.key -out only.gitlab.com.csr
+************
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = only.gitlab.com
+*************
+openssl x509 -req -in only.gitlab.com.csr -CA rootCAG.crt -CAkey rootCAG.key -CAcreateserial -out only.gitlab.com.crt -days 730 -sha256 --extfile only.gitlab.com.ext
 ####################rabbitmq#######################
 
 
